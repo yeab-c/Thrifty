@@ -10,6 +10,9 @@ import PlaceOrder from './pages/PlaceOrder'
 import Orders from './pages/Orders'
 import Collection from './pages/Collection'
 import Nav from './components/Nav'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Footer from './components/Footer'
 
 const App = () => {
   return (
@@ -28,6 +31,8 @@ const App = () => {
         <Route path="/place-order" element={<PlaceOrder />} />
         <Route path="/orders" element={<Orders />} />
       </Routes>
+      <ToastContainer />
+      <Footer />
     </div>
   )
 }
