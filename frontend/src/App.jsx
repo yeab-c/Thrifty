@@ -19,6 +19,7 @@ const App = () => {
   return (
     <div className='px-4 sm:px-[5vw] md:px-[7vw] lg:px-[10vw]'>
 
+      
       <Nav />
       <SearchBar />
 
