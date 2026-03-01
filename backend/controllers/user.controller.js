@@ -17,20 +17,20 @@ const loginUser = async (req, res) => {
         const user = await User.findOne({ email });
 
         if (!user) {
-            return res.json({sucess: false, message: 'User not found' });
+            return res.json({ success: false, message: 'User not found' });
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
 
         if (isMatch) {
             const token = createToken(user._id);
-            res.json({ sucess: true, message: 'Login successful', token });
+            res.json({ success: true, message: 'Login successful', token });
         } else {
-            res.json({ sucess: false, message: 'Incorrect password' });
+            res.json({ success: false, message: 'Incorrect password' });
         }
     } catch (error) {
         console.error('Error logging in user:', error);
-        res.json({ sucess: false, message: 'Error logging in user', error });
+        res.json({ success: false, message: 'Error logging in user', error });
     }
 }
 
@@ -44,19 +44,19 @@ const registerUser = async (req, res) => {
         const existingUser = await User.findOne({ email });
 
         if (existingUser) {
-            return res.json({ sucess: false, message: 'User already exists' });
+            return res.json({ success: false, message: 'User already exists' });
         }
 
         if (!validator.isEmail(email)) {
-            return res.json({ sucess: false, message: 'Invalid email format' });
+            return res.json({ success: false, message: 'Invalid email format' });
         }
 
         if (password.length < 8) {
-            return res.json({ sucess: false, message: 'Password must be at least 8 characters long' });
+            return res.json({ success: false, message: 'Password must be at least 8 characters long' });
         }
 
         if (!validator.isStrongPassword(password)) {
-            return res.json({ sucess: false, message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character' });
+            return res.json({ success: false, message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character' });
         }
 
         // hashing the password before saving to the database
@@ -75,11 +75,11 @@ const registerUser = async (req, res) => {
 
         const token = createToken(user._id);
 
-        res.status(201).json({ message: 'User registered successfully', token });
+        res.status(201).json({ success: true, message: 'User registered successfully', token });
 
     } catch (error) {
         console.error('Error registering user:', error);
-        res.json({ sucess: false, message: 'Error registering user', error });
+        res.json({ success: false, message: 'Error registering user', error });
     }
 }
 
@@ -90,13 +90,13 @@ const adminLogin = async (req, res) => {
 
         if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
             const token = jwt.sign(email + password, process.env.JWT_SECRET);
-            res.json({ sucess: true, message: 'Admin login successful', token });
+            res.json({ success: true, message: 'Admin login successful', token });
         } else {
-            res.json({ sucess: false, message: 'Invalid admin credentials' });
+            res.json({ success: false, message: 'Invalid admin credentials' });
         }
     } catch (error) {
         console.error('Error logging in admin:', error);
-        res.json({ sucess: false, message: 'Error logging in admin', error });
+        res.json({ success: false, message: 'Error logging in admin', error });
     }
 }
 
