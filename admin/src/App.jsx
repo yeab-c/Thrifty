@@ -1,15 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Nav from './components/Nav'
 import Sidebar from './components/Sidebar'
 import { Routes, Route } from 'react-router-dom'
 import List from './pages/List'
 import Orders from './pages/Orders'
 import Add from './pages/Add'
+import Login from './components/Login'
 
 const App = () => {
+
+  const [token,setToken] = useState('');
+
+
   return (
     <div className='bg-gray-50 min-h-screen'>
-      <>
+      { token === '' 
+      ? <Login /> 
+      : <>
         <Nav />
         <hr className='border-gray-300' />
         <div className='flex w-full'>
@@ -22,7 +29,8 @@ const App = () => {
             </Routes>
           </div>
         </div>
-      </>
+      </>}
+      
     </div>
   )
 }
